@@ -24,8 +24,24 @@ var Promise = require('bluebird');
  *   (2) The callback is invoked with (err, results)
  */
 
+var readHelloText = function() {
+
+}
+
 var promisify = function (nodeStyleFn) {
- // TODO
+  // TODO
+  return function() {
+    var args = Array.prototype.slice.call(arguments);
+    return new Promise(function (resolve, reject) { 
+      nodeStyleFn.apply(null, args.concat(function(err, results) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(results);
+        }
+      }));
+    });
+  }
 };
 
 /******************************************************************

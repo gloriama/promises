@@ -373,7 +373,7 @@ describe('Advanced Content', function() {
   // refactor the tests to use mocks, following the
   // `nock` utilizing tests above as an example
 
-  describe('Collections', function() {
+  xdescribe('Collections', function() {
     var collections = require('../exercises/advanced/collections.js');
 
     describe('combineFirstLineOfManyFiles', function () {
@@ -425,7 +425,7 @@ describe('Advanced Content', function() {
 
   });
 
-  describe('Advanced chaining', function() {
+  xdescribe('Advanced chaining', function() {
     var chaining = require('../exercises/advanced/chaining.js');
 
     describe('searchCommonTagsFromGitHubProfiles', function () {

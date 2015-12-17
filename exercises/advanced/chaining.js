@@ -51,8 +51,8 @@ var lib = require('../../lib/advancedChainingHelpers.js');
 // Visit the following url to sign up for a free account
 //     https://developer.clarifai.com/accounts/login/?next=/applications/
 // Then, create a new Application and pass your Client Id and Client Secret into the method below
-lib.setImageTaggerCredentials('PAkAEnqmfXTAV-GrHcJxVJahofg8irdfMIExAPFJ',
-                              'GdFnWjd_AKO_X0uZoHbx_ps7323w62OPcx0m7SNO');
+lib.setImageTaggerCredentials('uMtFm_Op2jQ9VuJmS6I6w2Wq-hxGsOvhNDYM2tQk',
+                              'DBbx19VmkbtifLRxDyczJAR0L9UHc27G6jZxMpiG');
 
 var avatarUrls;
 var searchCommonTagsFromGitHubProfiles = function(githubHandles) {
@@ -73,6 +73,30 @@ var searchCommonTagsFromGitHubProfiles = function(githubHandles) {
     return lib.getIntersection(nestedArrayOfTags);
   });
 };
+
+// var searchCommonTagsFromGitHubProfiles = function(githubHandles) {
+//   return new Promise.all(githubHandles.map(function (githubHandle) {
+//     return lib.getGitHubProfile(githubHandle);
+//   }))
+//   .then(function(profiles) {
+//     return profiles.map(function(profile) {
+//       return profile.avatarUrl;
+//     });
+//   })
+//   .then(function(avatarUrls) {
+//     return {avatarUrls: avatarUrls, token: lib.authenticateImageTagger()};
+//   })
+//   .then(function(urlAndTokenObject) {
+//     console.log('TOKEN!');
+//     console.log(urlAndTokenObject.token);
+//     return lib.tagImage(urlAndTokenObject.avatarUrls, urlAndTokenObject.token);
+//   })
+//   .then(function(nestedArrayOfTags) {
+//     console.log(nestedArrayOfTags);
+//     return lib.getIntersection(nestedArrayOfTags);
+//   });
+// };
+
 
 // Export these functions so we can unit test them
 module.exports = {
