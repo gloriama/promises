@@ -4,6 +4,8 @@
 
 var Promise = require('bluebird');
 var asyncLib = require('../../lib/asyncLib.js');
+var promiseConstructor = require('../bare_minimum/promiseConstructor.js');
+var chaining = require('../bare_minimum/chaining.js');
 
 /**
  * A common asyncronous pattern:
@@ -22,17 +24,17 @@ var asyncLib = require('../../lib/asyncLib.js');
  * then continue to the exercises when you're ready
  */
 
-// Promise.all([
-//   asyncLib.getValueA(),
-//   asyncLib.getValueB(),
-//   asyncLib.getValueC(),
-//   asyncLib.getValueD()
-// ])
-// .then(asyncLib.logResolvedValues)
-// .then(asyncLib.filterValuesFromCollection)
-// .then(asyncLib.doMoreAsyncWorkWithFilteredValues)
-// // `bind` sets correct context when using console.log as a callback
-// .catch(console.log.bind(console));
+Promise.all([
+  asyncLib.getValueA(),
+  asyncLib.getValueB(),
+  asyncLib.getValueC(),
+  asyncLib.getValueD()
+])
+.then(asyncLib.logResolvedValues)
+.then(asyncLib.filterValuesFromCollection)
+.then(asyncLib.doMoreAsyncWorkWithFilteredValues)
+// `bind` sets correct context when using console.log as a callback
+.catch(console.log.bind(console));
 
 
 /******************************************************************
@@ -60,6 +62,12 @@ var asyncLib = require('../../lib/asyncLib.js');
 
 var combineFirstLineOfManyFiles = function (filePaths, writePath) {
  // YOUR CODE HERE
+  return Promise.all(filePaths.map( function(path) {
+    return promiseConstructor.pluckFirstLineFromFileAsync(path);
+  }))
+  .then( function(firstLines) {
+    return chaining.writeFileAsync(writePath, firstLines.join('\n'));
+  });
 };
 
 // Export these functions so we can unit test them

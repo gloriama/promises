@@ -30,6 +30,7 @@
   "dependencies": {
     "bluebird": "^2.9.34",
     "colors": "^1.1.2",
-    "request": "^2.61.0"
+    "request": "^2.61.0",
+    "underscore": "^1.8.3"
   }
 }

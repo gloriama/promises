@@ -131,5 +131,6 @@ var fetchProfileAndWriteToFile = function(readFilePath, writeFilePath) {
 };
 
 module.exports = {
-  fetchProfileAndWriteToFile: fetchProfileAndWriteToFile
+  fetchProfileAndWriteToFile: fetchProfileAndWriteToFile,
+  writeFileAsync: writeFileAsync
 }
