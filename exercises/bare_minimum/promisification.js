@@ -72,7 +72,6 @@ var generateRandomToken = function (callback) {
 
 var generateRandomTokenAsync = Promise.promisify(generateRandomToken); // TODO
 
-
 // (3) Asyncronous file manipulation
 var readFileAndMakeItFunny = function (filePath, callback) {
  fs.readFile(filePath, 'utf8', function(err, file) {
@@ -84,11 +83,26 @@ var readFileAndMakeItFunny = function (filePath, callback) {
      })
      .join('\n')
 
-   callback(null, funnyFile);
+   callback(funnyFile);
  });
 };
 
-var readFileAndMakeItFunnyAsync = Promise.promisify(readFileAndMakeItFunny); // TODO
+// var readFileAndMakeItFunnyAsync = Promise.promisify(readFileAndMakeItFunny); // TODO
+var readFileAndMakeItFunnyAsync = function (filePath) {
+  return new Promise(function (resolve, reject) {
+    fs.readFile(filePath, 'utf8', function (err, file) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(file.split('\n')
+         .map(function(line) {
+           return line + ' lol';
+         })
+         .join('\n'))
+      }
+    });
+  });
+}
 
 // Export these functions so we can unit test them
 // and reuse them in later code ;)
