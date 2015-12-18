@@ -2,6 +2,7 @@
 // You should only use the `new Promise` constructor from bluebird
 
 var Promise = require('bluebird');
+var _ = require('../../node_modules/underscore/underscore');
 
 /******************************************************************
  *                      Promise.promisify                         *
@@ -61,6 +62,44 @@ var promisify = function (nodeStyleFn) {
 
 var all = function (arrayOfPromises) {
   // TODO
+  var counter = 0;
+  var failed = false;
+  var output = [];
+  return new Promise(function(resolve, reject) {
+    _.each(arrayOfPromises, function(promise, index) {
+      promise
+        .then(function(result) {
+          // save it to our results array
+          output[index] = result;
+          counter++;
+        })
+        .catch(function(err) {
+          console.log(err);
+          reject(err);
+        });
+    });
+
+    //set interval that checks for when counter === arrayOfPromises.length
+    var checkInterval = setInterval(function() {
+      if (counter === arrayOfPromises.length) {
+        clearInterval(checkInterval);
+        resolve(output);
+      }
+    }, 25);
+  });
+  // function() {
+  //   return new Promise(function(resolve, reject) {
+  //     _.each()
+  //       promise
+  //         .then
+  //           counter++
+  //           resolve()
+  //         .catch
+  //           reject()
+  //           failed = true
+  //   })
+  //   .then()
+  // }
 };
 
 
